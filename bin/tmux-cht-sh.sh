@@ -23,4 +23,4 @@ read -e -p "Query for $ITEM: " QUERY
 
 QUERY="$(echo $QUERY | sed 's/\ /+/g')"
 
-bash $CHTSH $ITEM $QUERY | less
+bash $CHTSH $ITEM $QUERY | less -R
