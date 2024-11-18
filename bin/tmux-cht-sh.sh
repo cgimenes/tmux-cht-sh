@@ -10,12 +10,8 @@ else
   CHTSH="$CURRENT_DIR/cht.sh"
 fi
 
-if test -f "$CURRENT_DIR/list"; then
-  LIST="$CURRENT_DIR/list"
-else
-  curl -Ss https://cht.sh/:list > "$CURRENT_DIR/list"
-  LIST="$CURRENT_DIR/list"
-fi
+curl -Ss https://cht.sh/:list > "$CURRENT_DIR/list"
+LIST="$CURRENT_DIR/list"
 
 ITEM="$(cat $LIST | fzf --preview="bash $CHTSH {}" )"
 
@@ -25,6 +21,6 @@ fi
 
 read -e -p "Query for $ITEM: " QUERY
 
-QUERY="$(printf $QUERY | sed 's/\ /+/g')"
+QUERY="$(echo $QUERY | sed 's/\ /+/g')"
 
-bash $CHTSH $ITEM $QUERY | $PAGER
+bash $CHTSH $ITEM $QUERY | less
